@@ -1,0 +1,86 @@
+{
+  "selected": "random_forest",
+  "registered": true,
+  "threshold": 0.5431607284189786,
+  "budget_fraction": 0.2,
+  "selection_rule": "average_precision, ties broken by recall_at_k",
+  "champion_gate": {
+    "selected_average_precision": 0.21683666113928182,
+    "dummy_average_precision": 0.11389028686462004,
+    "beats_dummy": true
+  },
+  "candidates": {
+    "dummy": {
+      "average_precision": 0.11389028686462004,
+      "roc_auc": 0.5,
+      "recall_at_k": 0.208572691117985,
+      "precision_at_k": 0.11877201811776547,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "brier": 0.10091928943408804,
+      "prevalence": 0.11389028686462004,
+      "threshold": 0.5,
+      "confusion_matrix": {
+        "tn": 17607,
+        "fp": 0,
+        "fn": 2263,
+        "tp": 0
+      }
+    },
+    "logreg": {
+      "average_precision": 0.2125156811757164,
+      "roc_auc": 0.6679327214919567,
+      "recall_at_k": 0.37870083959346,
+      "precision_at_k": 0.21565173628585807,
+      "precision": 0.1879454601797335,
+      "recall": 0.5360141405214317,
+      "f1": 0.2783067569117816,
+      "brier": 0.2274448876543063,
+      "prevalence": 0.11389028686462004,
+      "threshold": 0.5,
+      "confusion_matrix": {
+        "tn": 12366,
+        "fp": 5241,
+        "fn": 1050,
+        "tp": 1213
+      }
+    },
+    "random_forest": {
+      "average_precision": 0.21683666113928182,
+      "roc_auc": 0.6692196448701846,
+      "recall_at_k": 0.3835616438356164,
+      "precision_at_k": 0.21841972823351788,
+      "precision": 0.18738574040219377,
+      "recall": 0.5435262925320371,
+      "f1": 0.2786903817831653,
+      "brier": 0.21231986991207769,
+      "prevalence": 0.11389028686462004,
+      "threshold": 0.5,
+      "confusion_matrix": {
+        "tn": 12273,
+        "fp": 5334,
+        "fn": 1033,
+        "tp": 1230
+      }
+    }
+  },
+  "selected_at_threshold": {
+    "average_precision": 0.21683666113928182,
+    "roc_auc": 0.6692196448701846,
+    "recall_at_k": 0.3835616438356164,
+    "precision_at_k": 0.21841972823351788,
+    "precision": 0.21841972823351788,
+    "recall": 0.3835616438356164,
+    "f1": 0.2783389450056117,
+    "brier": 0.21231986991207769,
+    "prevalence": 0.11389028686462004,
+    "threshold": 0.5431607284189786,
+    "confusion_matrix": {
+      "tn": 14501,
+      "fp": 3106,
+      "fn": 1395,
+      "tp": 868
+    }
+  }
+}

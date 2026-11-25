@@ -1,0 +1,29 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: carereturn-api:latest
+    container_name: carereturn-api
+    ports:
+      - "8000:8000"
+    environment:
+      CARERETURN_ROOT: /app
+      MODEL_PATH: /app/models/model.joblib
+      MODEL_META_PATH: /app/models/model_meta.json
+    volumes:
+      # Artifacts produced by the training pipeline; read-only for the API.
+      - ./models:/app/models:ro
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import sys, urllib.request; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=3).status == 200 else 1)",
+        ]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+    restart: unless-stopped

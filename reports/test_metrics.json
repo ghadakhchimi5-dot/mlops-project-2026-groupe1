@@ -1,0 +1,70 @@
+{
+  "evaluated_at": "2026-11-22T19:15:55+00:00",
+  "model_name": "carereturn-readmission",
+  "model_version": "2",
+  "algorithm": "random_forest",
+  "mlflow_run_id": "4448434823494e34a928a2541d1bcbc2",
+  "threshold": 0.5431607284189786,
+  "budget_fraction": 0.2,
+  "n_test": 19870,
+  "metrics": {
+    "average_precision": 0.20570753862766522,
+    "roc_auc": 0.659901967745173,
+    "recall_at_k": 0.37030490499337165,
+    "precision_at_k": 0.2108706592853548,
+    "precision": 0.21007771371270995,
+    "recall": 0.37030490499337165,
+    "f1": 0.26807421625079975,
+    "brier": 0.21307847882020428,
+    "prevalence": 0.11389028686462004,
+    "threshold": 0.5431607284189786,
+    "confusion_matrix": {
+      "tn": 14456,
+      "fp": 3151,
+      "fn": 1425,
+      "tp": 838
+    }
+  },
+  "age_bands": {
+    "[20-30)": {
+      "n": 343,
+      "average_precision": 0.4255187673311635,
+      "recall_at_k": 0.4827586206896552
+    },
+    "[30-40)": {
+      "n": 767,
+      "average_precision": 0.25792293144006884,
+      "recall_at_k": 0.4588235294117647
+    },
+    "[40-50)": {
+      "n": 1940,
+      "average_precision": 0.23418679333535364,
+      "recall_at_k": 0.45408163265306123
+    },
+    "[50-60)": {
+      "n": 3424,
+      "average_precision": 0.17461385593087625,
+      "recall_at_k": 0.4340836012861736
+    },
+    "[60-70)": {
+      "n": 4237,
+      "average_precision": 0.199930270568701,
+      "recall_at_k": 0.3538135593220339
+    },
+    "[70-80)": {
+      "n": 5025,
+      "average_precision": 0.1919736858974829,
+      "recall_at_k": 0.3185550082101806
+    },
+    "[80-90)": {
+      "n": 3438,
+      "average_precision": 0.20425868156490842,
+      "recall_at_k": 0.34273318872017355
+    },
+    "[90-100)": {
+      "n": 527,
+      "average_precision": 0.15674980670088018,
+      "recall_at_k": 0.23809523809523808
+    }
+  }
+}

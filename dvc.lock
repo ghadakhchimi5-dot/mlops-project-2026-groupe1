@@ -1,0 +1,162 @@
+schema: '2.0'
+stages:
+  validate:
+    cmd: python -m carereturn.data.validate
+    deps:
+    - path: data/raw/IDS_mapping.csv
+      hash: md5
+      md5: e17b3b3ffa348d0a47a9bb3c92b218b3
+      size: 2547
+    - path: data/raw/diabetic_data.csv
+      hash: md5
+      md5: 502f0cc004e4cf71536ec2e61596e42f
+      size: 19159383
+    - path: src/carereturn/data/io.py
+      hash: md5
+      md5: fd733f000d4c7e25e90661100619825e
+      size: 4565
+    - path: src/carereturn/data/validate.py
+      hash: md5
+      md5: 75046481bed76b1a2c027c3fb54bd5a8
+      size: 8768
+    outs:
+    - path: reports/data_validation.json
+      hash: md5
+      md5: 5d51b5f1e3f021e3fc4c865ed75bfb87
+      size: 705
+  prepare:
+    cmd: python -m carereturn.data.prepare
+    deps:
+    - path: data/raw/diabetic_data.csv
+      hash: md5
+      md5: 502f0cc004e4cf71536ec2e61596e42f
+      size: 19159383
+    - path: reports/data_validation.json
+      hash: md5
+      md5: 5d51b5f1e3f021e3fc4c865ed75bfb87
+      size: 705
+    - path: src/carereturn/data/io.py
+      hash: md5
+      md5: fd733f000d4c7e25e90661100619825e
+      size: 4565
+    - path: src/carereturn/data/prepare.py
+      hash: md5
+      md5: 6c2e5399b321f78398344bc76d7e1f79
+      size: 2990
+    outs:
+    - path: data/interim/cohort.parquet
+      hash: md5
+      md5: d79b421de2587ebd71aac48f0e5f1163
+      size: 2014867
+  split:
+    cmd: python -m carereturn.data.split
+    deps:
+    - path: data/interim/cohort.parquet
+      hash: md5
+      md5: d79b421de2587ebd71aac48f0e5f1163
+      size: 2014867
+    - path: src/carereturn/data/split.py
+      hash: md5
+      md5: cd740fae7ec2acfdd90347bfa07a333a
+      size: 8028
+    params:
+      params.yaml:
+        seed: 42
+        split:
+          train: 0.6
+          val: 0.2
+          test: 0.2
+    outs:
+    - path: data/processed/test.parquet
+      hash: md5
+      md5: 9a7a87fea6a09dcbe73b633707065c66
+      size: 409915
+    - path: data/processed/train.parquet
+      hash: md5
+      md5: 3a65b5195c38031df8c31ae4ef4085d5
+      size: 1198054
+    - path: data/processed/val.parquet
+      hash: md5
+      md5: 18b00ad1b8780b62441eaecccd5983ba
+      size: 407034
+    - path: reports/split_summary.json
+      hash: md5
+      md5: 8b4e59f4bc83955bbc64dfb85bae391d
+      size: 572
+  train:
+    cmd: python -m carereturn.models.train
+    deps:
+    - path: data/processed/train.parquet
+      hash: md5
+      md5: 3a65b5195c38031df8c31ae4ef4085d5
+      size: 1198054
+    - path: data/processed/val.parquet
+      hash: md5
+      md5: 18b00ad1b8780b62441eaecccd5983ba
+      size: 407034
+    - path: src/carereturn/models
+      hash: md5
+      md5: 54253c92b2925be040ef5620f5c2b48b.dir
+      size: 104849
+      nfiles: 12
+    params:
+      params.yaml:
+        seed: 42
+        train:
+          budget_fraction: 0.2
+          models:
+            dummy:
+              strategy: prior
+            logreg:
+              C: 1.0
+              class_weight: balanced
+              max_iter: 2000
+            random_forest:
+              n_estimators: 300
+              max_depth: 12
+              min_samples_leaf: 20
+              class_weight: balanced_subsample
+              n_jobs: -1
+    outs:
+    - path: models/model.joblib
+      hash: md5
+      md5: fe4930d6ab6664ca6a0b2eabcb349ef4
+      size: 18373883
+    - path: models/model_meta.json
+      hash: md5
+      md5: 91b72300d3a39fd45af3d3492e28ffed
+      size: 1216
+    - path: reports/val_metrics.json
+      hash: md5
+      md5: 19cd7200c650f27b156909ece3d86a8a
+      size: 2366
+  evaluate:
+    cmd: python -m carereturn.models.evaluate
+    deps:
+    - path: data/processed/test.parquet
+      hash: md5
+      md5: 9a7a87fea6a09dcbe73b633707065c66
+      size: 409915
+    - path: models/model.joblib
+      hash: md5
+      md5: fe4930d6ab6664ca6a0b2eabcb349ef4
+      size: 18373883
+    - path: models/model_meta.json
+      hash: md5
+      md5: 91b72300d3a39fd45af3d3492e28ffed
+      size: 1216
+    - path: src/carereturn/models
+      hash: md5
+      md5: 54253c92b2925be040ef5620f5c2b48b.dir
+      size: 104849
+      nfiles: 12
+    outs:
+    - path: reports/figures
+      hash: md5
+      md5: 8cd554e08edf5dc0535399b46ccf1d46.dir
+      size: 131032
+      nfiles: 4
+    - path: reports/test_metrics.json
+      hash: md5
+      md5: a87046837e52173a357c396b4ae83741
+      size: 1831
