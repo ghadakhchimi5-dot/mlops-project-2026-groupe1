@@ -1,0 +1,40 @@
+# Keep the build context small; the image only needs src + models + packaging metadata.
+.git
+.gitignore
+.venv
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+coverage.xml
+htmlcov/
+dist/
+build/
+
+# Data & experiment artifacts are pulled at runtime / mounted via Compose.
+data/
+mlruns/
+mlartifacts/
+mlflow.db
+reports/
+
+# DVC, tooling and docs not needed inside the image.
+.dvc/
+.dvcignore
+dvc.yaml
+params.yaml
+tests/
+.pre-commit-config.yaml
+docker-compose.yml
+Dockerfile
+.dockerignore
+.env
+.env.*
+.idea/
+.vscode/
+.DS_Store
+SYNOPSIS.md

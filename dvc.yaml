@@ -1,0 +1,67 @@
+stages:
+  validate:
+    cmd: python -m carereturn.data.validate
+    deps:
+      - data/raw/diabetic_data.csv
+      - data/raw/IDS_mapping.csv
+      - src/carereturn/data/validate.py
+      - src/carereturn/data/io.py
+    metrics:
+      - reports/data_validation.json:
+          cache: false
+
+  prepare:
+    cmd: python -m carereturn.data.prepare
+    deps:
+      - data/raw/diabetic_data.csv
+      - reports/data_validation.json
+      - src/carereturn/data/prepare.py
+      - src/carereturn/data/io.py
+    outs:
+      - data/interim/cohort.parquet
+
+  split:
+    cmd: python -m carereturn.data.split
+    deps:
+      - data/interim/cohort.parquet
+      - src/carereturn/data/split.py
+    params:
+      - seed
+      - split
+    outs:
+      - data/processed/train.parquet
+      - data/processed/val.parquet
+      - data/processed/test.parquet
+    metrics:
+      - reports/split_summary.json:
+          cache: false
+
+  train:
+    cmd: python -m carereturn.models.train
+    deps:
+      - data/processed/train.parquet
+      - data/processed/val.parquet
+      - src/carereturn/models
+    params:
+      - seed
+      - train
+    outs:
+      - models/model.joblib
+      - models/model_meta.json
+    metrics:
+      - reports/val_metrics.json:
+          cache: false
+
+  evaluate:
+    cmd: python -m carereturn.models.evaluate
+    deps:
+      - data/processed/test.parquet
+      - models/model.joblib
+      - models/model_meta.json
+      - src/carereturn/models
+    metrics:
+      - reports/test_metrics.json:
+          cache: false
+    plots:
+      - reports/figures:
+          cache: false

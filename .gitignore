@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+dist/
+build/
+*.egg-info/
+
+# Data & artifacts are tracked by DVC (it writes per-directory .gitignore files)
+
+# MLflow
+mlruns/
+mlartifacts/
+mlflow.db
+
+# Misc
+.DS_Store
+.env
+.idea/
+.vscode/
+.playwright-mcp/

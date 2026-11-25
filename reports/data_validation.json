@@ -1,0 +1,30 @@
+{
+  "n_rows": 101766,
+  "n_cols": 50,
+  "n_patients": 71518,
+  "n_positive": 11357,
+  "positive_rate": 0.111599,
+  "checks": {
+    "schema_columns": {
+      "passed": true,
+      "detail": "50 column(s) present; missing=none; extra=none"
+    },
+    "encounter_id_unique": {
+      "passed": true,
+      "detail": "0 duplicated encounter_id value(s)"
+    },
+    "target_values": {
+      "passed": true,
+      "detail": "unexpected target value(s): none"
+    },
+    "numeric_features": {
+      "passed": true,
+      "detail": "all numeric features are integers in range"
+    },
+    "code_columns": {
+      "passed": true,
+      "detail": "all code columns match the dictionary"
+    }
+  },
+  "passed": true
+}

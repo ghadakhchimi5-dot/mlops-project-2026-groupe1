@@ -1,0 +1,33 @@
+{
+  "seed": 42,
+  "proportions": {
+    "train": 0.6,
+    "val": 0.2,
+    "test": 0.2
+  },
+  "splits": {
+    "test": {
+      "rows": 19870,
+      "patients": 14038,
+      "positive_rate": 0.11389,
+      "row_fraction": 0.2
+    },
+    "val": {
+      "rows": 19870,
+      "patients": 13965,
+      "positive_rate": 0.11389,
+      "row_fraction": 0.2
+    },
+    "train": {
+      "rows": 59603,
+      "patients": 41987,
+      "positive_rate": 0.113887,
+      "row_fraction": 0.6
+    }
+  },
+  "patient_overlap": {
+    "train_val": 0,
+    "train_test": 0,
+    "val_test": 0
+  }
+}

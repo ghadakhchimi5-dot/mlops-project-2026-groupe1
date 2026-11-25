@@ -1,0 +1,22 @@
+seed: 42
+
+split:
+  train: 0.6
+  val: 0.2
+  test: 0.2
+
+train:
+  budget_fraction: 0.20   # top-k fraction for recall@k (follow-up capacity)
+  models:
+    dummy:
+      strategy: prior
+    logreg:
+      C: 1.0
+      class_weight: balanced
+      max_iter: 2000
+    random_forest:
+      n_estimators: 300
+      max_depth: 12
+      min_samples_leaf: 20
+      class_weight: balanced_subsample
+      n_jobs: -1
